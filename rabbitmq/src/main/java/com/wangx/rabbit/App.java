@@ -8,6 +8,9 @@ public class App
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+        String a ="0.244";
+        String num[] = a.split("\\.");
+        Integer s = Integer.parseInt(a.split("\\.")[0]);
+        System.out.println(s);
     }
 }
