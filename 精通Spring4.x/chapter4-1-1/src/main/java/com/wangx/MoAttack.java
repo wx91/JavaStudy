@@ -14,12 +14,18 @@ public class MoAttack implements ActorArrangable {
 		this.geli = geli;
 	}
 
-	public void cityGateAsk() {
-		geli.responseAsk("墨者革离");
+	// 属性注入
+	public void setGeli(GeLi geli) {
+		this.geli = geli;
 	}
 
+	// 接口注入
 	public void injectGeli(GeLi geli) {
 		this.geli = geli;
+	}
+
+	public void cityGateAsk() {
+		geli.responseAsk("墨者革离");
 	}
 
 }
