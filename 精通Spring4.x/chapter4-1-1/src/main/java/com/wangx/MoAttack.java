@@ -2,11 +2,15 @@ package com.wangx;
 
 public class MoAttack {
 
+	private GeLi geli;
+
+	// 注入革离的具体饰演者
+	public MoAttack(GeLi geli) {
+		this.geli = geli;
+	}
+
 	public void cityGateAsk() {
-		// 1.引入革离角色接口
-		GeLi ldh = new LiuDeHua();
-		// 2.通过接口展开剧情
-		ldh.responseAsk("墨者革离");
+		geli.responseAsk("墨者革离");
 	}
 
 }
