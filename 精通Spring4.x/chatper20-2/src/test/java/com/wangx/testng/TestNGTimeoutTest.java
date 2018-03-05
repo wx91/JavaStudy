@@ -6,6 +6,7 @@ import static org.testng.Assert.*;
 public class TestNGTimeoutTest {
 	private User user;
 
+	@BeforeMethod
 	public void init() {
 		user = new User();
 		user.setUserName("admin");

@@ -10,8 +10,8 @@ import static org.hamcrest.Matchers.lessThan;
 import static org.hamcrest.Matchers.lessThanOrEqualTo;
 import static org.hamcrest.Matchers.not;
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertNotSame;
-import static org.testng.Assert.assertNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,7 +45,7 @@ public class TestNGAssertTest {
 		// 测试user1的访问IP是否等于user2的访问IP
 		assertEquals(tom.getLastIp(), john.getLastIp());
 		// 测试user1是否不为空
-		assertNull(tom);
+		assertNotNull(tom);
 		// 测试user1和user2引用不是同一个对象。
 		assertNotSame(tom, john);
 	}
