@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="TestAll">
+	<test name="final">
+		<classes>
+			<class name="com.wangx.TestGroup"></class>
+			<class name="com.wangx.TestGroup"></class>
+		</classes>
+	</test>
+	<!-- Run test method on group "selenium" only -->
+	<test name="selenium">
+		<groups>
+			<run>
+				<include name="selenium-test"></include>
+			</run>
+		</groups>
+		<classes>
+			<class name="com.wangx.TestGroup"></class>
+			<class name="com.wangx.TestGroup"></class>
+		</classes>
+	</test>
+
+</suite>
