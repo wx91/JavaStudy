@@ -5,7 +5,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
-class Temp extends Thread{
+class Temp extends Thread {
 	@Override
 	public void run() {
 		System.out.println("run");
@@ -13,11 +13,9 @@ class Temp extends Thread{
 }
 
 public class ScheduledJob {
-	public static void main(String[] args) throws Exception{
+	public static void main(String[] args) throws Exception {
 		Temp command = new Temp();
 		ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(0);
-		
-		 ScheduledFuture<?> scheduleTask = scheduler.scheduleWithFixedDelay(command, 5, 1, TimeUnit.SECONDS);
-		
+		ScheduledFuture<?> scheduleTask = scheduler.scheduleWithFixedDelay(command, 5, 1, TimeUnit.SECONDS);
 	}
 }
