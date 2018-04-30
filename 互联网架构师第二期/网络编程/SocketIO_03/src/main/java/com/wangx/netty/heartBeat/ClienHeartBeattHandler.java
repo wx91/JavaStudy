@@ -1,8 +1,13 @@
 package com.wangx.netty.heartBeat;
 
 import java.net.InetAddress;
+import java.util.HashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+
+import org.hyperic.sigar.CpuPerc;
+import org.hyperic.sigar.Mem;
+import org.hyperic.sigar.Sigar;
 
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
@@ -34,13 +39,13 @@ public class ClienHeartBeattHandler extends ChannelHandlerAdapter {
 			if (msg instanceof String) {
 				String ret = (String) msg;
 				if (SUCCESS_KEY.equals(ret)) {
-					//握手成功，主动发送心跳消息
+					// 握手成功，主动发送心跳消息
 
 				}
 			}
 
 		} finally {
-			
+
 		}
 	}
 
@@ -53,7 +58,27 @@ public class ClienHeartBeattHandler extends ChannelHandlerAdapter {
 
 		public void run() {
 			try {
-
+				RequestInfo info = new RequestInfo();
+				// ip
+				info.setIp(addr.getHostAddress());
+				Sigar sigar = new Sigar();
+				// cpu prec
+				CpuPerc cpuPerc = sigar.getCpuPerc();
+				HashMap<String, Object> cpuPercMap = new HashMap<String, Object>();
+				cpuPercMap.put("combined", cpuPerc.getCombined());
+				cpuPercMap.put("user", cpuPerc.getUser());
+				cpuPercMap.put("sys", cpuPerc.getSys());
+				cpuPercMap.put("wait", cpuPerc.getWait());
+				cpuPercMap.put("idle", cpuPerc.getIdle());
+				// memory
+				Mem mem = sigar.getMem();
+				HashMap<String, Object> memoryMap = new HashMap<String, Object>();
+				memoryMap.put("total", mem.getTotal() / 1024L);
+				memoryMap.put("used", mem.getUsed() / 1024L);
+				memoryMap.put("free", mem.getFree() / 1024L);
+				info.setCpuPercMap(cpuPercMap);
+				info.setMemoryMap(memoryMap);
+				ctx.writeAndFlush(info);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
