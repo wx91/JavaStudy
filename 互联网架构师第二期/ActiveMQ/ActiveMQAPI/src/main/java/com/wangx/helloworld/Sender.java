@@ -29,9 +29,13 @@ public class Sender {
 		messageProducer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 		// 第七步:最后我们使用JMS规范的TextMessage形式创建数据（通过Session对象），并用MessageProducer的send方法发送数据。同理客户端使用receive方法进行接收数据。最后不要忘记关闭Connection连接。
 		for (int i = 0; i < 5; i++) {
-			TextMessage textMessage = session.createTextMessage();
-			textMessage.setText("我是消息内容：id为：" + i);
-			messageProducer.send(textMessage);
+			TextMessage msg = session.createTextMessage();
+			//如果消息生产者的签收方式为CLIENT_ACKNOWLEDGE，那么消费者收到信息并调用msg.acknowledge();
+			//手工去签收消息，另其一个线程（tcp）去通知我们MQ服务，确认签收
+			msg.acknowledge(); 
+			msg.setText("我是消息内容：id为：" + i);
+			messageProducer.send(msg);
+			
 		}
 		if (connection != null) {
 			connection.close();

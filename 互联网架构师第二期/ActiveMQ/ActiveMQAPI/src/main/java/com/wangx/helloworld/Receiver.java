@@ -19,7 +19,7 @@ public class Receiver {
 		// start方法开启连接，Connection默认是关闭的。
 		connection.start();
 		// 第三步：通过Connection对象创建Session会话（上下文环境对象），用于接收消息，参加配置1为是否开启事务，参数配置2为签收模式，一般我们设置为自动签收。
-		Session session = connection.createSession(Boolean.FALSE, Session.AUTO_ACKNOWLEDGE);
+		Session session = connection.createSession(Boolean.FALSE, Session.CLIENT_ACKNOWLEDGE);
 		// 第四步：通过Session创建Destination对象，指的是一个客户端用来指定生产消息目标和消费消息来源的对象，在PTP模式中，Destination被称作Queue即队列；在Pub/Sub模式。Destination被称作Topic即主题。在程序中可以使用多个Queue和Topic。
 		Destination destination = session.createQueue("queue1");
 		// 第五步：我们需要通过Session对象创建消息的发送和接收对象（生产者和消费者）Message Producer/Message Consumer。
