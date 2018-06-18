@@ -1,13 +1,11 @@
-package com.wangx.base;
+package com.wangx.zookeeper.base;
 
 import java.util.concurrent.CountDownLatch;
 
-import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.Watcher.Event.EventType;
 import org.apache.zookeeper.Watcher.Event.KeeperState;
-import org.apache.zookeeper.ZooDefs.Ids;
 import org.apache.zookeeper.ZooKeeper;
 
 public class ZookeeperBase {
@@ -25,7 +23,7 @@ public class ZookeeperBase {
 			public void process(WatchedEvent event) {
 				// 获取事件的状态
 				KeeperState keeperState = event.getState();
-				//获取事件类型
+				// 获取事件类型
 				EventType eventType = event.getType();
 				// 如果是建立连接
 				if (KeeperState.SyncConnected == keeperState) {
@@ -43,7 +41,8 @@ public class ZookeeperBase {
 
 		System.out.println("..");
 		// 创建父节点
-		zk.create("/testRoot", "testRoot".getBytes(), Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
+		// zk.create("/testRoot", "testRoot".getBytes(), Ids.OPEN_ACL_UNSAFE,
+		// CreateMode.PERSISTENT);
 
 		// 创建子节点
 		// zk.create("/testRoot/children", "children data".getBytes(),
@@ -53,6 +52,21 @@ public class ZookeeperBase {
 		// byte[] data = zk.getData("/testRoot", false, null);
 		// System.out.println(new String(data));
 		// System.out.println(zk.getChildren("/testRoot", false));
+		// -1 删除所有版本
+		// zk.delete("/testRoot", -1, new VoidCallback() {
+		// public void processResult(int rc, String path, Object ctx) {
+		// System.out.println(rc);
+		// System.out.println(path);
+		// System.out.println(ctx);
+		// }
+		// }, "a");
+
+		// List<String> list = zk.getChildren("/testRoot", false);
+		// for (String path : list) {
+		// System.out.println(path);
+		// String realPath = "/testRoot" + path;
+		// System.out.println(new String(zk.getData(realPath, false, null)));
+		// }
 
 		// 修改节点的值
 		// zk.setData("/testRoot", "modify data root".getBytes(), -1);
@@ -65,6 +79,6 @@ public class ZookeeperBase {
 		// zk.delete("/testRoot/children", -1);
 		// System.out.println(zk.exists("/testRoot/children", false));
 
-//		zk.close();
+		zk.close();
 	}
 }
